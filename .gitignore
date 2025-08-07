@@ -47,3 +47,16 @@ next-env.d.ts
 /public/*.JPG
 /public/*.PNG
 /public/*.JPEG
+
+node_modules/
+.next/
+*.log
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+*.JPG
+*.PNG
+*.JPEG
+
