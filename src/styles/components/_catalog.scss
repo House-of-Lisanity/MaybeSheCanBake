@@ -1,0 +1,60 @@
+.product-catalog {
+  padding: 6rem 2rem 3rem;
+
+  h1 {
+    // H1 already styled globally
+  }
+
+  .category-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+
+    button {
+      background-color: transparent;
+      border: 2px solid var(--accent-strong);
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      color: var(--accent-strong);
+      border-radius: var(--radius);
+      transition: all 0.2s ease;
+
+      &.active,
+      &:hover {
+        background-color: var(--accent-strong);
+        color: var(--text-light);
+      }
+    }
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  // Optional: override just the visual inside Card in this section
+  .card {
+    background-color: #fff;
+
+    h3 {
+      color: var(--accent-strong);
+    }
+
+    small {
+      font-weight: bold;
+      font-size: 1rem;
+      color: var(--accent);
+    }
+
+    p {
+      font-size: 0.9rem;
+    }
+  }
+}

@@ -1,0 +1,8 @@
+@use "./base";
+@use "./components";
+@use "./utilities";
+
+*::before,
+*::after {
+  background: rgba(255, 0, 0, 0.2) !important;
+}

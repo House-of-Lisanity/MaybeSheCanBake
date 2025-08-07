@@ -1,0 +1,35 @@
+#about {
+  .about-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+
+  .about-photo {
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .about-content {
+    button {
+      background: none;
+      border: 1px solid #222;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+      color: #222;
+
+      &:hover {
+        background-color: #222;
+        color: #fff;
+      }
+    }
+  }
+}

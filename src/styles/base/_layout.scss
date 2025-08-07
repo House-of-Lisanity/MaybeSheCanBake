@@ -1,0 +1,48 @@
+:root {
+  --bg: #ffffff;
+  --accent: #cb6ce6;
+  --accent-strong: #ca49ef;
+  --text-dark: #3a3a3a;
+  --text-light: #ffffff;
+  --card-bg: #f9f7fc;
+  --button-bg: #ffffff;
+  --border-radius: 8px;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-dark);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+
+  & > .full-width {
+    width: 100vw;
+    max-width: none;
+    margin-left: calc(-50vw + 50%);
+    padding: 0; // or custom padding for edge-to-edge
+
+    // prevent any inherited max-width from child elements
+    * {
+      max-width: 100%;
+    }
+  }
+
+  @media (min-width: 600px) {
+    padding: 3rem 2rem;
+  }
+}
+
+section:not(.hero-banner) {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+section:last-of-type {
+  border-bottom: none;
+}

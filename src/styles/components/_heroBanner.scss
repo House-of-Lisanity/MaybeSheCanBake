@@ -1,0 +1,15 @@
+.hero-banner {
+  width: 100vw;
+  min-height: 300px; // fallback for very small screens
+  background-image: url("/banner1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-color: #fefefe; // fallback behind transparent PNG
+  margin: 0;
+  padding: 0;
+
+  @media (min-width: 768px) {
+    min-height: 400px;
+  }
+}
