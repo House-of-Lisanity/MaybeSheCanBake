@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Card from "@/components/Card";
 import Navbar from "@/components/NavBar";
-import ProductModal from "@/components/admin/ProductModal";
+// import ProductModal from "@/components/admin/ProductModal";
 import { ProductType } from "@/types/product";
 import { CategoryType } from "@/types/category";
 
@@ -126,13 +126,13 @@ export default function ProductCatalog() {
         ))}
       </div>
 
-      {isAdmin && showModal && (
+      {/* {isAdmin && showModal && (
         <ProductModal
           product={null}
           onClose={() => setShowModal(false)}
           onSaved={fetchProducts}
         />
-      )}
+      )} */}
     </section>
   );
 }
