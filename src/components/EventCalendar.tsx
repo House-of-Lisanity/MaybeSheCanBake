@@ -2,7 +2,7 @@
 import { useState } from "react"; // ✅ ADDED
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import EventModal from "./admin/EventModal"; // ✅ ADDED
+// import EventModal from "./admin/EventModal"; // ✅ ADDED
 import { EventType } from "@/types/event"; // ✅ ADDED
 
 type Props = {
