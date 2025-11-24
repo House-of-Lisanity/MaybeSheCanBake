@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/NavBar";
-import ProductModal from "@/components/admin/ProductModal";
+// import ProductModal from "@/components/admin/ProductModal";
 import { ProductType } from "@/types/product";
 import { buildCloudinaryUrl } from "@/lib/cloudinaryUrl";
 
@@ -164,13 +164,13 @@ export default function ProductDetail() {
         </article>
       </div>
 
-      {isAdmin && showModal && (
+      {/* {isAdmin && showModal && (
         <ProductModal
           product={product}
           onClose={() => setShowModal(false)}
           onSaved={refetch}
         />
-      )}
+      )} */}
     </section>
   );
 }
