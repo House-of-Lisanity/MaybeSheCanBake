@@ -12,18 +12,3 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-
-button {
-  padding: 0.75rem 1.25rem;
-  font: inherit;
-  background: #333;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  align-self: start;
-
-  &:hover {
-    background: #555;
-  }
-}

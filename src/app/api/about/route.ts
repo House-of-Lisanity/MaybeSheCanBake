@@ -1,26 +1,45 @@
+// maybeshecanbake/src/app/api/about/route.ts
 import { connectToDatabase } from "@/lib/mongodb";
 import { About } from "@/models/About";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
+// GET: public – return all sections that actually have body content
 export async function GET() {
-  await connectToDatabase();
-  const bio = await About.findOne({ isPublished: true });
-  return NextResponse.json(bio);
+  try {
+    await connectToDatabase();
+
+    const sections = await About.find({
+      body: { $exists: true, $ne: "" },
+    })
+      .sort({ sortOrder: 1, createdAt: 1 })
+      .lean();
+
+    return NextResponse.json(sections);
+  } catch (err) {
+    console.error("Error fetching about sections:", err);
+    return NextResponse.json(
+      { error: "Failed to fetch about sections" },
+      { status: 500 }
+    );
+  }
 }
 
-export async function POST(req: Request) {
-  await connectToDatabase();
-  const body = await req.json();
-
+// POST: admin – replace all sections with the provided payload
+export async function POST(req: NextRequest) {
   try {
-    // Replace existing bio (optional)
+    await connectToDatabase();
+
+    const body = await req.json();
+    const sectionsArray = Array.isArray(body) ? body : [body];
+
     await About.deleteMany({});
-    const newBio = await About.create(body);
-    return NextResponse.json(newBio, { status: 201 });
+    const newSections = await About.insertMany(sectionsArray);
+
+    return NextResponse.json(newSections, { status: 201 });
   } catch (err) {
-    console.error("Error updating about:", err);
+    console.error("Error updating about sections:", err);
     return NextResponse.json(
-      { error: "Failed to update bio" },
+      { error: "Failed to update about sections" },
       { status: 400 }
     );
   }

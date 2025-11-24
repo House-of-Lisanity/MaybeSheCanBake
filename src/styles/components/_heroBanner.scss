@@ -1,15 +1,34 @@
 .hero-banner {
-  width: 100vw;
-  min-height: 300px; // fallback for very small screens
-  background-image: url("/banner1.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-color: #fefefe; // fallback behind transparent PNG
+  width: 100%;
   margin: 0;
   padding: 0;
+  background-color: var(--bg);
+}
 
-  @media (min-width: 768px) {
-    min-height: 400px;
+/* Default: phones + tablets → full-width banner */
+.hero-banner__image-wrapper {
+  width: 100%;
+}
+
+.hero-banner__image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Desktop: shrink and center the banner so it isn't huge */
+@media (min-width: 1024px) {
+  /* Stop forcing full-width on desktop */
+  .hero-banner.full-width {
+    width: 100%;
+    margin-left: 0;
+    max-width: 1280px; /* match the main container */
+    padding: 0;
+  }
+
+  .hero-banner__image-wrapper {
+    width: 100%;
+    max-width: 1280px; /* same as main layout */
+    margin: 0 auto;
   }
 }

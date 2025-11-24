@@ -36,7 +36,7 @@ export default function Gallery() {
       {loading && <p>Loading images...</p>}
       <CardSlider>
         {gallery.map((image) => (
-          <Card key={image._id} image={image.url} title={image.caption} />
+          <Card key={image._id} image={image.url} />
         ))}
       </CardSlider>
     </section>

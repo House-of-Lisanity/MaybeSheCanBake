@@ -1,35 +1,95 @@
-#about {
-  .about-card {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    align-items: center;
+.about-basic {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
 
-    @media (min-width: 768px) {
-      flex-direction: row;
-      align-items: flex-start;
-    }
-  }
+.about-basic__image-wrapper {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
 
-  .about-photo {
-    border-radius: 50%;
-    object-fit: cover;
-  }
+.about-basic__image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--border-radius);
+}
 
-  .about-content {
-    button {
-      background: none;
-      border: 1px solid #222;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s;
-      color: #222;
+.about-basic__text {
+  width: 100%;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-dark);
+}
 
-      &:hover {
-        background-color: #222;
-        color: #fff;
-      }
-    }
+.about-basic__text h3 {
+  margin-bottom: 0.5rem;
+  color: var(--accent-strong);
+}
+
+.about-basic__text p {
+  margin-bottom: 0.75rem;
+}
+
+.about-basic__text {
+  width: 100%;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-dark);
+
+  /* NEW: center the Read More / Show Less button */
+  button {
+    display: block;
+    margin: 1rem auto 0; /* top margin for spacing, auto for centering */
   }
 }
+
+@media (min-width: 768px) {
+  .about-basic {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .about-basic__image-wrapper {
+    margin: 0;
+  }
+}
+
+// #about {
+//   .about-carousel {
+//     max-width: 900px;
+//     margin: 0 auto;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     gap: 1rem;
+//   }
+
+//   .about-card {
+//     flex: 1;
+//     padding: 1.5rem 1rem;
+//     text-align: left;
+//   }
+
+//   .about-content {
+//     p {
+//       line-height: 1.6;
+//       margin-bottom: 0;
+//     }
+//   }
+
+//   .card {
+//     max-width: 500px;
+//     height: auto;
+//   }
+
+//   .card-content {
+//     font-size: 1rem;
+//     line-height: 1.6;
+//   }
+// }

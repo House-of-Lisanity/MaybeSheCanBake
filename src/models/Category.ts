@@ -4,7 +4,8 @@ const { Schema, model, models } = mongoose;
 
 const CategorySchema = new Schema({
   name: { type: String, required: true, unique: true },
-  description: { type: String },
+  slug: { type: String, required: true, unique: true },
+  order: { type: Number, default: 0 },
   imageUrl: { type: String },
 });
 

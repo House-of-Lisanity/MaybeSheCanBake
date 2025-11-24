@@ -8,10 +8,12 @@
   position: relative;
 }
 
+/* Wrapper used in carousel mode (3+ items) */
 .slider-wrapper {
   flex: 1 1 auto;
   overflow: hidden;
-  max-width: 100%;
+  max-width: 1000px; /* good width for 3 cards */
+  margin: 0 auto;
 }
 
 .carousel-container {
@@ -22,6 +24,10 @@
 .carousel-item {
   padding: 0 0.5rem;
   box-sizing: border-box;
+
+  /* Center the card inside each carousel slide */
+  display: flex;
+  justify-content: center;
 }
 
 .slider-btn {
@@ -45,4 +51,25 @@
   &.right {
     margin-left: 1rem;
   }
+}
+
+/* Simple 1–2 card layout: used when there are <= 2 children */
+.slider-simple {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 700px; /* keeps row from stretching too wide */
+  margin: 0 auto; /* centers the row under the heading */
+}
+
+/* Hide arrows for Featured Treats on tablet/desktop; keep on mobile */
+@media (min-width: 768px) {
+  #products .slider-btn {
+    display: none;
+  }
+}
+/* Center the visible cards when the track has space */
+.react-multi-carousel-track {
+  justify-content: center !important;
 }

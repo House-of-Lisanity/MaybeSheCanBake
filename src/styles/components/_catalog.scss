@@ -11,24 +11,6 @@
     flex-wrap: wrap;
     gap: 1rem;
     margin-bottom: 2.5rem;
-
-    button {
-      background-color: transparent;
-      border: 2px solid var(--accent-strong);
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
-      cursor: pointer;
-      text-transform: uppercase;
-      color: var(--accent-strong);
-      border-radius: var(--radius);
-      transition: all 0.2s ease;
-
-      &.active,
-      &:hover {
-        background-color: var(--accent-strong);
-        color: var(--text-light);
-      }
-    }
   }
 
   .product-grid {
@@ -39,22 +21,32 @@
     margin: 0 auto;
   }
 
-  // Optional: override just the visual inside Card in this section
-  .card {
-    background-color: #fff;
+  /* Cards in the grid are links; remove link look */
+  .product-grid a {
+    text-decoration: none;
+    color: inherit;
+  }
 
+  // Override the visual inside Card in this section
+  .card {
+    background-color: var(--card-bg);
+
+    /* product name */
     h3 {
       color: var(--accent-strong);
     }
 
+    /* product price (assuming you use <small> for price) */
     small {
       font-weight: bold;
       font-size: 1rem;
       color: var(--accent);
     }
 
+    /* description text */
     p {
       font-size: 0.9rem;
+      color: var(--text-dark);
     }
   }
 }

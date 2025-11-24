@@ -1,99 +1,170 @@
 .product-detail {
-  padding: 2rem 1rem;
+  padding-top: 1rem;
 
-  .detail-wrapper {
+  &__inner {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+
+  /* Card wrapper */
+  &__card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    max-width: 1000px;
-    margin: 0 auto;
+    gap: 1.5rem;
+  }
 
-    @media (min-width: 768px) {
-      flex-direction: row;
-      align-items: flex-start;
-      gap: 3rem;
+  /* IMAGE SECTION */
+  &__image-wrapper {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    background: #fff;
+    padding: 0.5rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: calc(var(--border-radius) - 4px);
+    object-fit: cover;
+  }
+
+  /* HEADER BLOCK */
+  &__header {
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+
+  &__title {
+    /* Uses global h1 styling — do NOT override color or font */
+    margin-bottom: 0.25rem;
+  }
+
+  &__price {
+    font-size: 1rem;
+    text-align: center;
+
+    span {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      opacity: 0.6;
+      letter-spacing: 0.1em;
+      margin-right: 0.35rem;
     }
   }
 
-  .image-column {
-    flex: 1;
-    max-width: 600px;
-
-    .product-image {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-      border-radius: var(--border-radius);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      background-color: var(--card-bg);
-      border: 1px solid #eee;
-      padding: 0.5rem;
-    }
+  /* TEXT CONTENT */
+  &__description {
+    line-height: 1.65;
+    max-width: 50rem;
+    margin: 0.5rem auto 0;
+    font-size: 1rem;
+    text-align: left;
   }
 
-  .info-column {
-    flex: 1;
-    padding: 0;
+  /* SECTIONS (Highlights, Ingredients) */
+  &__section {
+    margin-top: 1.25rem;
+  }
 
-    h1 {
-      font-size: 2rem;
-      color: var(--accent-strong);
-      margin-bottom: 1rem;
-    }
+  &__section-title {
+    /* h3 inherits global styles */
+    margin-bottom: 0.5rem;
+    text-align: left;
+  }
 
-    .description {
-      font-size: 1rem;
-      margin-bottom: 1.5rem;
+  &__list {
+    padding-left: 1.25rem;
+
+    li {
+      margin-bottom: 0.25rem;
       line-height: 1.5;
-      color: var(--text-dark);
     }
+  }
 
-    .price {
-      font-weight: bold;
-      font-size: 1.1rem;
-      margin-bottom: 2rem;
-      color: var(--accent-strong);
-    }
+  /* DIVIDER */
+  &__divider {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 1.75rem 0 1rem;
+  }
 
-    .product-section {
-      border-top: 1px solid #ddd;
-      padding-top: 1rem;
-      margin-top: 1.5rem;
+  /* NAVIGATION LINKS */
+  &__nav {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
 
-      h3 {
-        margin-bottom: 0.5rem;
-        font-size: 1.1rem;
-        color: var(--accent);
-      }
+    a {
+      text-decoration: none;
+      padding-bottom: 1px;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
 
-      ul {
-        padding-left: 1.25rem;
-        list-style: disc;
-
-        li {
-          margin-bottom: 0.5rem;
-        }
+      &:hover {
+        border-color: currentColor;
       }
     }
+  }
 
-    .product-nav {
-      margin-top: 3rem;
-      border-top: 1px solid #ddd;
-      padding-top: 1rem;
+  &__nav-divider {
+    opacity: 0.4;
+  }
 
-      a {
-        color: var(--accent);
-        text-decoration: underline;
+  /* ADMIN BUTTON ROW */
+  &__admin-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+  }
 
-        &:hover {
-          color: var(--accent-strong);
-        }
+  &__admin-button {
+    /* Uses global button styles — do not override fonts/colors */
+    border: 1px solid var(--accent-strong);
+    border-radius: var(--border-radius);
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: transparent;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: var(--accent-strong);
+      color: var(--text-light);
+    }
+
+    &--danger {
+      border-color: #d9534f;
+
+      &:hover {
+        background: #d9534f;
       }
+    }
+  }
 
-      .divider {
-        margin: 0 0.5rem;
-        color: #888;
-      }
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    &__card {
+      padding: 1.5rem;
+    }
+
+    &__title {
+      font-size: 1.75rem;
+    }
+
+    &__description {
+      font-size: 0.95rem;
     }
   }
 }

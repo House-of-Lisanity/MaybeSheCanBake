@@ -1,12 +1,12 @@
 :root {
-  --bg: #ffffff;
-  --accent: #cb6ce6;
-  --accent-strong: #ca49ef;
-  --text-dark: #3a3a3a;
+  --bg: #efebe5;
+  --accent: #f1ccfa;
+  --accent-strong: #da87f0;
+  --text-dark: #000000;
   --text-light: #ffffff;
-  --card-bg: #f9f7fc;
-  --button-bg: #ffffff;
-  --border-radius: 8px;
+  --card-bg: #f7f2eb;
+  --button-bg: #f1ccfa;
+  --border-radius: 12px;
 }
 
 body {
@@ -14,12 +14,31 @@ body {
   color: var(--text-dark);
 }
 
+button {
+  background-color: transparent;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+
+  transition: all 0.2s ease;
+
+  &.active,
+  &:hover {
+    background-color: var(--accent-strong);
+    color: var(--text-light);
+    border-radius: var(--border-radius);
+  }
+}
+
 main {
   display: flex;
   flex-direction: column;
   gap: 2rem;
   padding: 2rem 1rem;
-  max-width: 1000px;
+  max-width: 1280px;
   margin: 0 auto;
 
   & > .full-width {
@@ -37,6 +56,10 @@ main {
   @media (min-width: 600px) {
     padding: 3rem 2rem;
   }
+}
+
+section[id] {
+  scroll-margin-top: 90px;
 }
 
 section:not(.hero-banner) {

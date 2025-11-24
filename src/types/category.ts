@@ -1,6 +1,9 @@
+// src/types/category.ts
 export interface CategoryType {
   _id: string;
-  name: string; // e.g., "Cookies"
+  name: string;
+  slug: string;
+  order?: number;
+  imageUrl?: string;
   description?: string;
-  imageUrl?: string; // for use in the card
 }

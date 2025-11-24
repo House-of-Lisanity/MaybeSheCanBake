@@ -1,21 +1,31 @@
-// types/product.ts
-
-export enum ProductCategory {
-  All = "All",
-  Cookies = "Cookies",
-  DessertBars = "Dessert Bars",
-  Muffins = "Muffins",
-  Cakes = "Cakes",
-}
+import { CategoryType } from "./category";
 
 export interface ProductType {
   _id: string;
   name: string;
-  category: ProductCategory;
+  category: string | CategoryType;
+
   price?: string;
   description?: string;
-  highlights?: string[];
   ingredients?: string[];
+
   imageUrl?: string;
+  imagePublicId?: string;
+
   isAvailable: boolean;
+  isVisible: boolean;
+  showInGallery: boolean;
+  isFeatured: boolean;
+
+  dietary?: string[];
+  allergens?: string[];
+  flavors?: string[];
+  tags?: string[];
+  highlights?: string[];
+  texture?: string;
+  season?: string;
+  shelfLife?: string;
+  storage?: string;
+  availability?: string;
+  servings?: number;
 }
