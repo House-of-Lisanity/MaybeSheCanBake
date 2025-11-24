@@ -41,22 +41,20 @@ export default function EventCalendar({ events: initialEvents }: Props) {
         events={calendarEvents}
         height="auto"
       />
-
       {/* ✅ ADMIN Add Event Button */}
       {isAdmin && (
         <button onClick={() => openModal(null)} className="add-event-btn">
           + Add Event
         </button>
       )}
-
-      {/* ✅ Event Modal */}
-      {showModal && (
+      ✅ Event Modal
+      {/* {showModal && (
         <EventModal
           event={selectedEvent}
           onClose={() => setShowModal(false)}
           onSave={refreshEvents}
         />
-      )}
+      )} */}
     </div>
   );
 }
