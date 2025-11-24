@@ -91,7 +91,7 @@ export default function Navbar({ alwaysScrolled = false }: NavbarProps) {
           {/* IDs should match the section IDs in your homepage */}
           <Link href={sectionHref("hero")}>Home</Link>
           <Link href={sectionHref("about")}>About</Link>
-          <Link href={sectionHref("products")}>Products</Link>
+          <Link href="/products">Products</Link>
           <Link href={sectionHref("gallery")}>Gallery</Link>
           <Link href={sectionHref("contact")}>Contact</Link>
         </nav>

@@ -3,14 +3,20 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import { Product } from "@/models/Product";
 
+type ProductRouteContext = {
+  params: Promise<{ id: string }>;
+};
+
 // GET a single product
 export async function GET(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+  _req: NextRequest,
+  { params }: ProductRouteContext
+): Promise<NextResponse> {
   try {
     await connectToDatabase();
-    const product = await Product.findById(params.id).lean();
+    const { id } = await params;
+
+    const product = await Product.findById(id).lean();
     if (!product) {
       return NextResponse.json({ error: "Product not found" }, { status: 404 });
     }
@@ -27,12 +33,14 @@ export async function GET(
 // UPDATE a product
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+  { params }: ProductRouteContext
+): Promise<NextResponse> {
   try {
     await connectToDatabase();
+    const { id } = await params;
+
     const data = await req.json();
-    const updated = await Product.findByIdAndUpdate(params.id, data, {
+    const updated = await Product.findByIdAndUpdate(id, data, {
       new: true,
     });
     return NextResponse.json(updated);
@@ -47,12 +55,14 @@ export async function PUT(
 
 // DELETE a product
 export async function DELETE(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+  _req: NextRequest,
+  { params }: ProductRouteContext
+): Promise<NextResponse> {
   try {
     await connectToDatabase();
-    await Product.findByIdAndDelete(params.id);
+    const { id } = await params;
+
+    await Product.findByIdAndDelete(id);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error deleting product:", error);
