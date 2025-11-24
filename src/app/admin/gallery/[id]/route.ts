@@ -1,24 +1,40 @@
-// import { NextResponse } from "next/server";
-// import { Gallery } from "@/models/Gallery";
-// import { connectToDatabase } from "@/lib/mongodb";
+// src/app/admin/events/[id]/route.ts
+// Stubbed admin events route for initial deploy.
 
-// export async function PUT(
-//   req: Request,
-//   { params }: { params: { id: string } }
-// ) {
-//   await connectToDatabase();
-//   const body = await req.json();
-//   const updated = await Gallery.findByIdAndUpdate(params.id, body, {
-//     new: true,
-//   });
-//   return NextResponse.json(updated);
-// }
+import { NextRequest, NextResponse } from "next/server";
 
-// export async function DELETE(
-//   _: Request,
-//   { params }: { params: { id: string } }
-// ) {
-//   await connectToDatabase();
-//   await Gallery.findByIdAndDelete(params.id);
-//   return NextResponse.json({ success: true });
-// }
+type RouteParams = {
+  params: {
+    id: string;
+  };
+};
+
+export async function GET(
+  _req: NextRequest,
+  _context: RouteParams
+): Promise<NextResponse> {
+  return NextResponse.json(
+    { error: "Admin events GET not implemented yet." },
+    { status: 501 }
+  );
+}
+
+export async function PUT(
+  _req: NextRequest,
+  _context: RouteParams
+): Promise<NextResponse> {
+  return NextResponse.json(
+    { error: "Admin events PUT not implemented yet." },
+    { status: 501 }
+  );
+}
+
+export async function DELETE(
+  _req: NextRequest,
+  _context: RouteParams
+): Promise<NextResponse> {
+  return NextResponse.json(
+    { error: "Admin events DELETE not implemented yet." },
+    { status: 501 }
+  );
+}
