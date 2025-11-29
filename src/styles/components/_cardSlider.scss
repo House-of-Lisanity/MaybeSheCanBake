@@ -21,7 +21,7 @@
   overflow: visible !important; // desktop & tablet: allow peek
 
   /* On small screens, hide overflow so only one card is visible */
-  @media (max-width: 768px) {
+  @media (max-width: 480px) {
     overflow: hidden !important;
     max-width: 100%;
   }
@@ -73,25 +73,5 @@
 @media (min-width: 768px) {
   #products .slider-btn {
     display: none;
-  }
-}
-
-/* EXTRA SMALL SCREENS: force ONE full-width card per slide */
-@media screen and (max-width: 480px) {
-  .slider-outer {
-    max-width: 100%;
-  }
-
-  .slider-outer .carousel-container {
-    overflow: hidden !important;
-  }
-
-  /* Make each slide take the full width so only one can show */
-  .slider-outer .react-multi-carousel-item,
-  .slider-outer .carousel-item {
-    flex: 0 0 100% !important;
-    max-width: 100% !important;
-    padding: 0;
-    box-sizing: border-box;
   }
 }
