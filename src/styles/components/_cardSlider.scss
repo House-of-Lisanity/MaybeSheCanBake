@@ -23,6 +23,7 @@
   /* On small screens, hide overflow so only one card is visible */
   @media (max-width: 768px) {
     overflow: hidden !important;
+    max-width: 100%;
   }
 }
 
@@ -33,12 +34,6 @@
   /* Center the card inside each carousel slide */
   display: flex;
   justify-content: center;
-}
-
-@media (max-width: 768px) {
-  .carousel-item {
-    padding: 0; /* remove side padding so only one card fits */
-  }
 }
 
 .slider-btn {
