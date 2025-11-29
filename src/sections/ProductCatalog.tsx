@@ -114,6 +114,15 @@ export default function ProductCatalog() {
       </div>
 
       <div className="product-grid">
+        <p>
+          Please note: Each flavor has a minimum order of 6 pieces. You cannot
+          mix flavors within a batch; increases must be in half dozen increments
+          per flavor. At this time, we are not offering shipping. Orders are for
+          pick-up only.
+        </p>
+      </div>
+
+      <div className="product-grid">
         {filtered.map((product) => (
           <Card
             key={product._id}

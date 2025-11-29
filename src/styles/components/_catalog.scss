@@ -1,52 +1,54 @@
-.product-catalog {
-  padding: 6rem 2rem 3rem;
+.product-grid {
+  display: grid;
+  /* Keep cards from stretching full-width; center the columns */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 
-  h1 {
-    // H1 already styled globally
-  }
+  /* Center each grid item within its column */
+  justify-content: center;
+  justify-items: center;
+}
 
-  .category-buttons {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 2.5rem;
-  }
-
+/* Mobile: force a single centered column */
+@media (max-width: 600px) {
   .product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    justify-items: center;
+  }
+}
+
+/* Cards in the grid are links; remove link look AND make them shrink to content */
+.product-grid a {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block; /* important for centering! */
+}
+
+// Override the visual inside Card in this section
+.card {
+  background-color: var(--card-bg);
+
+  /* ensure card itself is centered inside the link/grid cell */
+  margin: 0 auto;
+
+  /* product name */
+  h3 {
+    color: var(--accent-strong);
   }
 
-  /* Cards in the grid are links; remove link look */
-  .product-grid a {
-    text-decoration: none;
-    color: inherit;
+  /* product price (assuming you use <small> for price) */
+  small {
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--text-dark);
   }
 
-  // Override the visual inside Card in this section
-  .card {
-    background-color: var(--card-bg);
-
-    /* product name */
-    h3 {
-      color: var(--accent-strong);
-    }
-
-    /* product price (assuming you use <small> for price) */
-    small {
-      font-weight: bold;
-      font-size: 1rem;
-      color: var(--accent);
-    }
-
-    /* description text */
-    p {
-      font-size: 0.9rem;
-      color: var(--text-dark);
-    }
+  /* description text */
+  p {
+    font-size: 0.9rem;
+    color: var(--text-dark);
   }
 }
