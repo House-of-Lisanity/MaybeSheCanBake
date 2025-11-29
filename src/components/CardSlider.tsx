@@ -4,7 +4,7 @@
 import Carousel from "react-multi-carousel";
 import type CarouselType from "react-multi-carousel/lib/types";
 import "react-multi-carousel/lib/styles.css";
-import { ReactNode, useRef, Children } from "react";
+import { ReactNode, useRef, Children, useState } from "react";
 import SliderArrow from "./SliderArrow";
 
 type CardSliderProps = {
@@ -49,6 +49,7 @@ export default function CardSlider({
   singleItem,
 }: CardSliderProps) {
   const carouselRef = useRef<CarouselType | null>(null);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const handlePrev = () => {
     carouselRef.current?.previous(1);
@@ -78,12 +79,40 @@ export default function CardSlider({
     ? childArray.length > 1
     : childArray.length >= 3;
 
-  // SIMPLE MODE: 1–2 cards → centered flex row, no carousel logic
+  // SIMPLE MODE: 1–2 cards → show ONE at a time with arrows, no carousel logic
   // Only when we're NOT forcing carousel and NOT in single-item mode.
   if (!forceCarousel && !singleItem && childArray.length <= 2) {
+    const currentItem = childArray[currentIndex];
+
+    const handleSimplePrev = () => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === 0 ? childArray.length - 1 : prevIndex - 1
+      );
+    };
+
+    const handleSimpleNext = () => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === childArray.length - 1 ? 0 : prevIndex + 1
+      );
+    };
+
+    const showSimpleArrows = childArray.length > 1;
+
     return (
       <div className="slider-outer">
-        <div className="slider-simple">{childArray}</div>
+        {showSimpleArrows && (
+          <button className="slider-btn left" onClick={handleSimplePrev}>
+            <SliderArrow direction="left" />
+          </button>
+        )}
+
+        <div className="slider-simple">{currentItem}</div>
+
+        {showSimpleArrows && (
+          <button className="slider-btn right" onClick={handleSimpleNext}>
+            <SliderArrow direction="right" />
+          </button>
+        )}
       </div>
     );
   }
