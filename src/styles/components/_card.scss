@@ -113,3 +113,10 @@
 #about .card-content button:hover {
   text-decoration: underline;
 }
+
+/* On small screens, hide overflow so only one card is visible */
+@media (max-width: 768px) {
+  .carousel-container {
+    overflow: hidden !important;
+  }
+}
