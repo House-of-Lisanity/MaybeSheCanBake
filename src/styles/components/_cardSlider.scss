@@ -75,7 +75,23 @@
     display: none;
   }
 }
-// /* Center the visible cards when the track has space */
-// .react-multi-carousel-track {
-//   justify-content: center !important;
-// }
+
+/* EXTRA SMALL SCREENS: force ONE full-width card per slide */
+@media screen and (max-width: 480px) {
+  .slider-outer {
+    max-width: 100%;
+  }
+
+  .slider-outer .carousel-container {
+    overflow: hidden !important;
+  }
+
+  /* Make each slide take the full width so only one can show */
+  .slider-outer .react-multi-carousel-item,
+  .slider-outer .carousel-item {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}
