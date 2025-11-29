@@ -36,13 +36,6 @@
   }
 }
 
-/* EXTRA SMALL SCREENS: card should fill the slide */
-@media screen and (max-width: 480px) {
-  .slider-outer .card {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-  
 /* ABOUT SECTION — full-width card, image left + text right when image exists */
 #about .slider-outer {
   max-width: 1200px; /* same container width as gallery */
