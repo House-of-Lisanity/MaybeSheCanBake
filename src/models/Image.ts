@@ -8,7 +8,8 @@ const ImageSchema = new Schema(
     isPublished: { type: Boolean, default: true },
     isHero: { type: Boolean, default: false },
     isLogo: { type: Boolean, default: false },
-    // Cloudinary integration fields
+    isHeadshot: { type: Boolean, default: false },
+    excludeFromGallery: { type: Boolean, default: false },
     publicId: { type: String, required: true, unique: true },
     format: String,
     width: Number,

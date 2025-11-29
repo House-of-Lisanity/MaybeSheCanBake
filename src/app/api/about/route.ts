@@ -9,6 +9,7 @@ export async function GET() {
     await connectToDatabase();
 
     const sections = await About.find({
+      isVisible: true,
       body: { $exists: true, $ne: "" },
     })
       .sort({ sortOrder: 1, createdAt: 1 })

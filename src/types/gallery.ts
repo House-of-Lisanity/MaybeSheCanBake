@@ -4,6 +4,9 @@ export interface GalleryType {
   caption?: string;
   isPublished: boolean;
   isHero: boolean;
+  isLogo: boolean;
+  isHeadshot: boolean;
+  excludeFromGallery: boolean;
   publicId: string;
   format?: string;
   width?: number;

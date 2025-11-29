@@ -12,7 +12,9 @@ export async function GET() {
     const images = await Image.find({
       isPublished: true,
       isHero: { $ne: true },
-      isLogo: { $ne: true }, // ⭐ EXCLUDE hero images
+      isLogo: { $ne: true },
+      isHeadshot: { $ne: true },
+      excludeFromGallery: { $ne: true },
     })
       .sort({ createdAt: -1 })
       .lean();

@@ -2,7 +2,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import CardSlider from "@/components/CardSlider";
+import Card from "@/components/Card";
 
 type AboutSection = {
   _id: string;
@@ -16,172 +17,134 @@ type AboutSection = {
   sortOrder?: number;
 };
 
-export default function AboutSectionBasic() {
-  const [about, setAbout] = useState<AboutSection | null>(null);
+const MAX_PREVIEW_LENGTH = 350;
+
+export default function AboutSectionCarousel() {
+  const [sections, setSections] = useState<AboutSection[]>([]);
   const [loading, setLoading] = useState(true);
-  const [expanded, setExpanded] = useState(false);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchAbout = async () => {
+    const fetchAll = async () => {
       try {
-        const res = await fetch("/api/about");
-        if (!res.ok) {
-          throw new Error(`Failed to fetch about sections: ${res.status}`);
+        // 1) Fetch about sections
+        const aboutRes = await fetch("/api/about");
+        if (!aboutRes.ok) {
+          throw new Error(`Failed to fetch about sections: ${aboutRes.status}`);
         }
 
-        const data: AboutSection[] = await res.json();
+        const aboutData: AboutSection[] = await aboutRes.json();
 
-        // Find the "About the Baker" section by sectionKey,
-        // fall back to the first visible section if needed.
-        const bakerSection =
-          data.find(
-            (sec) =>
-              sec.sectionKey === "baker" &&
-              sec.body &&
-              sec.body.trim() !== "" &&
-              sec.isVisible
-          ) ||
-          data.find(
-            (sec) => sec.body && sec.body.trim() !== "" && sec.isVisible
-          ) ||
-          null;
+        // Only keep visible + non-empty sections
+        const filtered = aboutData.filter(
+          (sec) => sec.isVisible && sec.body && sec.body.trim() !== ""
+        );
 
-        setAbout(bakerSection);
+        // 2) Fetch the headshot image
+        // 2) Fetch the headshot image
+        let headshot: { url: string; caption?: string } | null = null;
+        try {
+          // ✅ matches your route: src/app/api/gallery/headshot/route.ts
+          const imgRes = await fetch("/api/gallery/headshot");
+          if (imgRes.ok) {
+            const imgData = await imgRes.json();
+            headshot = {
+              url: imgData.url,
+              caption: imgData.caption,
+            };
+          }
+        } catch (imgErr) {
+          console.error("Failed to load headshot image:", imgErr);
+        }
+
+        // 3) Attach the headshot ONLY to the "baker" section
+        const finalSections = filtered.map((sec) => {
+          if (
+            sec.sectionKey === "baker" &&
+            headshot &&
+            (!sec.imageUrl || sec.imageUrl.trim() === "")
+          ) {
+            return {
+              ...sec,
+              imageUrl: headshot.url,
+              imageAlt: sec.imageAlt || headshot.caption || sec.title,
+            };
+          }
+
+          // All other sections are untouched
+          return sec;
+        });
+
+        setSections(finalSections);
       } catch (err) {
-        console.error("Failed to load about section:", err);
+        console.error("Failed to load about sections:", err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchAbout();
+    void fetchAll();
   }, []);
 
-  const toggleExpanded = () => {
-    setExpanded((prev) => !prev);
+  const toggleExpanded = (id: string) => {
+    setExpandedId((prev) => (prev === id ? null : id));
   };
 
-  // Short preview of the body text when not expanded
-  const getPreviewText = (body: string): string => {
-    const maxLength = 350; // adjust to "a few lines"
-    if (expanded || body.length <= maxLength) {
+  const getPreviewText = (body: string, expanded: boolean): string => {
+    if (expanded || body.length <= MAX_PREVIEW_LENGTH) {
       return body;
     }
-    return body.slice(0, maxLength).trimEnd() + "...";
+    return body.slice(0, MAX_PREVIEW_LENGTH).trimEnd() + "...";
   };
 
   return (
     <section id="about">
-      <h2>About the Baker</h2>
+      <h2>About</h2>
 
       {loading && <p>Loading...</p>}
 
-      {!loading && !about && (
+      {!loading && sections.length === 0 && (
         <p>No About content is available right now. Please check back later.</p>
       )}
 
-      {!loading && about && (
-        <article className="about-basic">
-          {about.imageUrl && (
-            <div className="about-basic__image-wrapper">
-              <Image
-                src={about.imageUrl}
-                alt={about.imageAlt || about.title || "About the baker"}
-                width={400}
-                height={400}
-                className="about-basic__image"
+      {!loading && sections.length > 0 && (
+        <CardSlider forceCarousel singleItem>
+          {sections.map((section) => {
+            const isExpanded = section._id === expandedId;
+            const previewText = getPreviewText(section.body, isExpanded);
+            const shouldShowButton = section.body.length > MAX_PREVIEW_LENGTH;
+
+            return (
+              <Card
+                key={section._id}
+                image={section.imageUrl}
+                title={section.title}
+                content={
+                  <>
+                    {section.subtitle && <h3>{section.subtitle}</h3>}
+
+                    <p>
+                      {previewText}
+
+                      {shouldShowButton && (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation(); // just in case the card becomes clickable
+                            toggleExpanded(section._id);
+                          }}
+                        >
+                          {isExpanded ? "Show less" : "Read more"}
+                        </button>
+                      )}
+                    </p>
+                  </>
+                }
               />
-            </div>
-          )}
-
-          <div className="about-basic__text">
-            {/* Optional: if you want a subheading inside the section */}
-            {about.subtitle && <h3>{about.subtitle}</h3>}
-
-            <p>{getPreviewText(about.body)}</p>
-
-            {about.body.length > 220 && (
-              <button type="button" onClick={toggleExpanded}>
-                {expanded ? "Show less" : "Read more"}
-              </button>
-            )}
-          </div>
-        </article>
+            );
+          })}
+        </CardSlider>
       )}
     </section>
   );
 }
-
-// // maybeshecanbake/src/sections/About.tsx
-// "use client";
-
-// import { useEffect, useState } from "react";
-// import CardSlider from "@/components/CardSlider";
-// import Card from "@/components/Card";
-
-// type AboutSection = {
-//   _id: string;
-//   sectionKey: string;
-//   title: string;
-//   subtitle?: string;
-//   body: string;
-//   imageUrl?: string;
-//   imageAlt?: string;
-//   isVisible: boolean;
-//   sortOrder?: number;
-// };
-
-// export default function AboutSectionCarousel() {
-//   const [sections, setSections] = useState<AboutSection[]>([]);
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     const fetchSections = async () => {
-//       try {
-//         const res = await fetch("/api/about");
-//         if (!res.ok) {
-//           throw new Error(`Failed to fetch about sections: ${res.status}`);
-//         }
-
-//         const data: AboutSection[] = await res.json();
-
-//         // Extra safety: drop any entries with missing/empty body
-//         const filtered = data.filter(
-//           (sec) => sec.body && sec.body.trim() !== ""
-//         );
-
-//         setSections(filtered);
-//       } catch (err) {
-//         console.error("Failed to load about sections:", err);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchSections();
-//   }, []);
-
-//   return (
-//     <section id="about">
-//       <h2>About Me</h2>
-
-//       {loading && <p>Loading...</p>}
-
-//       {!loading && sections.length === 0 && <p>No About content available.</p>}
-
-//       {!loading && sections.length > 0 && (
-//         <CardSlider>
-//           {sections.map((section) => (
-//             <Card
-//               key={section._id}
-//               title={section.title}
-//               content={section.body}
-//               image={section.imageUrl}
-//               onClick={undefined} // no click action needed for About
-//             />
-//           ))}
-//         </CardSlider>
-//       )}
-//     </section>
-//   );
-// }

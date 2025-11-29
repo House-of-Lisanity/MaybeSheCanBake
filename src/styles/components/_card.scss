@@ -34,6 +34,82 @@
     flex-direction: column;
     gap: 0.25rem;
   }
+}
+/* ABOUT SECTION — full-width card, image left + text right when image exists */
+#about .slider-outer {
+  max-width: 1200px; /* same container width as gallery */
+  margin: 2rem auto;
+}
 
-  // No tag-level styling here
+#about .carousel-item {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#about .card {
+  /* Full width like the gallery row */
+  flex: 1 1 auto;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 auto;
+
+  /* Horizontal layout when there is an image */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+/* Headshot block: visually matches gallery image footprint */
+#about .card-image-wrapper {
+  flex: 0 0 218px; /* approx. 250px card width minus horizontal padding */
+  width: 218px;
+  height: 200px; /* same as global .card-image-wrapper height */
+  margin-right: 1.5rem;
+}
+
+/* Let the text take the remaining space on the right */
+#about .card-content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Mobile: stack image above text so it doesn’t get squished */
+@media (max-width: 768px) {
+  #about .card {
+    flex-direction: column;
+  }
+
+  #about .card-image-wrapper {
+    flex: 0 0 auto;
+    max-width: 100%;
+    width: 100%;
+    height: 220px;
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Make "Read More" appear inline with the paragraph */
+#about .card-content p {
+  display: inline; /* keep the text inline */
+}
+
+#about .card-content button {
+  display: inline;
+  margin-left: 0.35rem;
+  padding: 0;
+  font-size: 0.9rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+}
+
+/* Hover styling (matches global button hover but minimal) */
+#about .card-content button:hover {
+  text-decoration: underline;
 }

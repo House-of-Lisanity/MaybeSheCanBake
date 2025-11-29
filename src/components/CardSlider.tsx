@@ -2,17 +2,19 @@
 "use client";
 
 import Carousel from "react-multi-carousel";
-import CarouselType from "react-multi-carousel/lib/types";
+import type CarouselType from "react-multi-carousel/lib/types";
 import "react-multi-carousel/lib/styles.css";
 import { ReactNode, useRef, Children } from "react";
 import SliderArrow from "./SliderArrow";
 
-type Props = {
+type CardSliderProps = {
   children: ReactNode;
   /** When true, always use carousel mode, even with 1–2 items */
   forceCarousel?: boolean;
   /** When true, also show arrows even if there are only 2 items */
   forceArrows?: boolean;
+  /** When true, always show exactly ONE card at a time on all breakpoints */
+  singleItem?: boolean;
 };
 
 const responsive = {
@@ -33,11 +35,19 @@ const responsiveTwoItems = {
   mobile: { breakpoint: { max: 768, min: 0 }, items: 1 },
 };
 
+const responsiveSingle = {
+  // Always 1 card, all breakpoints
+  desktop: { breakpoint: { max: 3000, min: 1024 }, items: 1 },
+  tablet: { breakpoint: { max: 1024, min: 768 }, items: 1 },
+  mobile: { breakpoint: { max: 768, min: 0 }, items: 1 },
+};
+
 export default function CardSlider({
   children,
   forceCarousel,
   forceArrows,
-}: Props) {
+  singleItem,
+}: CardSliderProps) {
   const carouselRef = useRef<CarouselType | null>(null);
 
   const handlePrev = () => {
@@ -51,21 +61,26 @@ export default function CardSlider({
   // Turn children into an array so we can count them
   const childArray = Children.toArray(children);
 
-  // If a section forces carousel and only has 1–2 items (like Featured Treats),
-  // use a 2/2/1 layout instead of the default 3/2/1.
-  const responsiveConfig =
-    forceCarousel && childArray.length <= 2 ? responsiveTwoItems : responsive;
+  // If singleItem is true, always show exactly one card at a time.
+  // Otherwise, use the existing responsive behavior.
+  const responsiveConfig = singleItem
+    ? responsiveSingle
+    : forceCarousel && childArray.length <= 2
+    ? responsiveTwoItems
+    : responsive;
 
-  // Show arrows whenever we're in carousel mode.
-  // Normally that means 3+ items, but some sections (like Featured Treats)
-  // can opt-in to arrows with only 2 items.
-  const showArrows = forceArrows
+  // Show arrows:
+  // - In single-item mode: show if there is more than 1 card.
+  // - Otherwise: original behavior (3+ items, or 2+ when forceArrows is true).
+  const showArrows = singleItem
+    ? childArray.length > 1
+    : forceArrows
     ? childArray.length > 1
     : childArray.length >= 3;
 
-  // 🔹 SIMPLE MODE: 1–2 cards → centered flex row, no carousel logic
-  //    but ONLY when forceCarousel is NOT set
-  if (!forceCarousel && childArray.length <= 2) {
+  // SIMPLE MODE: 1–2 cards → centered flex row, no carousel logic
+  // Only when we're NOT forcing carousel and NOT in single-item mode.
+  if (!forceCarousel && !singleItem && childArray.length <= 2) {
     return (
       <div className="slider-outer">
         <div className="slider-simple">{childArray}</div>
@@ -73,7 +88,7 @@ export default function CardSlider({
     );
   }
 
-  // 🔹 CAROUSEL MODE
+  // CAROUSEL MODE
   return (
     <div className="slider-outer">
       {showArrows && (
