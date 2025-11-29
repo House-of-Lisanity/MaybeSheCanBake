@@ -113,18 +113,3 @@
 #about .card-content button:hover {
   text-decoration: underline;
 }
-
-/* MOBILE: make each slide/card full-width so only one shows at a time */
-@media (max-width: 768px) {
-  /* Each carousel item = full width */
-  .carousel-container .react-multi-carousel-item {
-    width: 100% !important;
-    flex: 0 0 100% !important;
-  }
-
-  /* Card itself also stretches to full width */
-  .card {
-    width: 100%;
-    max-width: 100%;
-  }
-}
