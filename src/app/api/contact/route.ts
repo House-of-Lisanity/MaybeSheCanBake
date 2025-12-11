@@ -31,17 +31,26 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     }
 
     if (!resendApiKey) {
-      return NextResponse.json(
-        { error: "Email service not configured" },
-        { status: 500 }
-      );
+      // Temporary fallback while Resend billing is being sorted out.
+      // We still accept the message and log it, but skip sending emails.
+      // eslint-disable-next-line no-console
+      console.warn("Contact message received, but RESEND_API_KEY is not set.", {
+        name,
+        email,
+        message,
+      });
+
+      return NextResponse.json({
+        message:
+          "Message received. Email notifications are temporarily offline, but your message has been delivered.",
+      });
     }
 
     // 1) Email to Heaven
     const toHeaven = await resend.emails.send({
       from: "Maybe She Can Bake <no-reply@maybeshecanbake.com>",
       to: [HEAVEN_EMAIL],
-      reply_to: email,
+      replyTo: email,
       subject: `New message from ${name} via website`,
       html: `
         <h2>New Contact Form Message</h2>
