@@ -97,8 +97,8 @@ export default function Navbar({ alwaysScrolled = false }: NavbarProps) {
         </nav>
 
         <div className="nav-icons">
-          <i className="fa fa-search" />
-          <i className="fa fa-user" />
+          {/* <i className="fa fa-search" />
+          <i className="fa fa-user" /> */}
           <i className="fa fa-shopping-basket" />
         </div>
       </div>

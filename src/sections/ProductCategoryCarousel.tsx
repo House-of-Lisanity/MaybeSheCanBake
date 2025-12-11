@@ -38,8 +38,8 @@ function getCategoryInfo(category: ProductCategory): CategoryCard {
     const cat = category as CategoryType & { _id?: string };
 
     const categoryId = cat._id ?? cat.slug ?? cat.name ?? "generic";
-    const slug = cat.slug ?? "All";
     const title = cat.name ?? "Featured Treats";
+    const slug = title || "All";
 
     return {
       categoryId,

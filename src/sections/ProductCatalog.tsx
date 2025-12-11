@@ -118,7 +118,8 @@ export default function ProductCatalog() {
           Please note: Each flavor has a minimum order of 6 pieces. You cannot
           mix flavors within a batch; increases must be in half dozen increments
           per flavor. At this time, we are not offering shipping. Orders are for
-          pick-up only.
+          pick-up only. Please use the Contact Us form on the home page to
+          order.
         </p>
       </div>
 
