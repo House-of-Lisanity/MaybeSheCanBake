@@ -26,33 +26,55 @@ export default function ProductCatalog() {
   const searchParams = useSearchParams();
 
   // Fetch products
+  // Fetch products
   const fetchProducts = async () => {
     try {
       const res = await fetch("/api/products");
       const data: ProductWithCategory[] = await res.json();
+
       setProducts(data);
       setFiltered(data);
+
+      // Build category list ONLY from categories that actually appear on products
+      const categorySet = new Set<string>();
+
+      data.forEach((p) => {
+        const catField = p.category;
+        if (!catField) return;
+
+        if (typeof catField === "object" && "name" in catField) {
+          categorySet.add(catField.name);
+          return;
+        }
+
+        if (typeof catField === "string") {
+          categorySet.add(catField);
+        }
+      });
+
+      const sorted = Array.from(categorySet).sort((a, b) => a.localeCompare(b));
+      setCategories(["All", ...sorted]);
     } catch (error) {
       console.error("Error fetching products", error);
     }
   };
 
-  // Fetch categories from API
-  const fetchCategories = async () => {
-    try {
-      const res = await fetch("/api/categories");
-      const data: CategoryType[] = await res.json();
-      const names = data.map((c) => c.name);
-      setCategories(["All", ...names]);
-    } catch (error) {
-      console.error("Error fetching categories", error);
-    }
-  };
+  // // Fetch categories from API
+  // const fetchCategories = async () => {
+  //   try {
+  //     const res = await fetch("/api/categories");
+  //     const data: CategoryType[] = await res.json();
+  //     const names = data.map((c) => c.name);
+  //     setCategories(["All", ...names]);
+  //   } catch (error) {
+  //     console.error("Error fetching categories", error);
+  //   }
+  // };
 
   // Initial load
   useEffect(() => {
     fetchProducts();
-    fetchCategories();
+    // fetchCategories();
   }, []);
 
   // Read category from URL query (?category=Cookies)

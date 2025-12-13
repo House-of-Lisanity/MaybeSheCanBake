@@ -13,7 +13,7 @@ export const siteConfig = {
     { id: "products", label: "Menu" },
     { id: "about", label: "About" },
     { id: "gallery", label: "Gallery" },
-    // { id: "reviews", label: "Reviews" },
+    { id: "reviews", label: "Reviews" },
     { id: "contact", label: "Contact" },
   ],
   contactEmail: "hello@maybeshecanbake.com",
