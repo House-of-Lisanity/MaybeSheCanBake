@@ -2,9 +2,17 @@
 
 import { useState } from "react";
 
+// TEMP (market): show a static contact notice instead of the form
+const MARKET_MODE = true;
+
 export default function Contact() {
-  // TEMP (market): show a static contact notice instead of the form
-  const MARKET_MODE = true;
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   if (MARKET_MODE) {
     return (
       <section id="contact" className="contact-section">
@@ -22,14 +30,6 @@ export default function Contact() {
       </section>
     );
   }
-
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
