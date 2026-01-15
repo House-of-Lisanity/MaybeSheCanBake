@@ -11,7 +11,7 @@ if (!resendApiKey) {
 const resend = new Resend(resendApiKey ?? "");
 
 const HEAVEN_EMAIL = "maybeshecanbake@gmail.com";
-const FROM_EMAIL = "Maybe She Can Bake <onboarding@resend.dev>";
+const FROM_EMAIL = "Maybe She Can Bake <no-reply@maybeshecanbake.com>";
 
 interface EmailResult {
   success: boolean;
@@ -38,7 +38,9 @@ export async function sendOrderConfirmationToCustomer(
     const itemsList = order.items
       .map(
         (item) =>
-          `<li><strong>${item.productName}</strong> x${item.quantity} - $${item.price.toFixed(2)}</li>`
+          `<li><strong>${item.productName}</strong> x${
+            item.quantity
+          } - $${item.price.toFixed(2)}</li>`
       )
       .join("");
 
@@ -130,7 +132,11 @@ export async function sendOrderNotificationToHeaven(
     const itemsList = order.items
       .map(
         (item) =>
-          `<li><strong>${item.productName}</strong> x${item.quantity} - $${item.price.toFixed(2)}${item.notes ? `<br/><em>Notes: ${item.notes}</em>` : ""}</li>`
+          `<li><strong>${item.productName}</strong> x${
+            item.quantity
+          } - $${item.price.toFixed(2)}${
+            item.notes ? `<br/><em>Notes: ${item.notes}</em>` : ""
+          }</li>`
       )
       .join("");
 
@@ -138,7 +144,9 @@ export async function sendOrderNotificationToHeaven(
       ? `
         <div style="margin-top: 1rem; padding: 1rem; background: #fff3cd; border-left: 3px solid #d9a441;">
           <strong>🎁 GIFT ORDER - Message for Recipient:</strong>
-          <p style="font-style: italic;">${order.giftMessage || "(No message provided)"}</p>
+          <p style="font-style: italic;">${
+            order.giftMessage || "(No message provided)"
+          }</p>
         </div>
       `
       : "";
@@ -149,15 +157,25 @@ export async function sendOrderNotificationToHeaven(
         
         <div style="background: #f7f2eb; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
           <p style="margin: 0.25rem 0;"><strong>Order Type:</strong> ${orderType}</p>
-          <p style="margin: 0.25rem 0;"><strong>Order ID:</strong> ${order._id}</p>
-          <p style="margin: 0.25rem 0;"><strong>Date:</strong> ${new Date(order.createdAt || "").toLocaleString()}</p>
+          <p style="margin: 0.25rem 0;"><strong>Order ID:</strong> ${
+            order._id
+          }</p>
+          <p style="margin: 0.25rem 0;"><strong>Date:</strong> ${new Date(
+            order.createdAt || ""
+          ).toLocaleString()}</p>
         </div>
         
         <h3 style="color: #d9a441;">Customer Information</h3>
         <ul style="line-height: 1.8;">
           <li><strong>Name:</strong> ${order.customerName}</li>
-          <li><strong>Email:</strong> <a href="mailto:${order.customerEmail}">${order.customerEmail}</a></li>
-          ${order.customerPhone ? `<li><strong>Phone:</strong> ${order.customerPhone}</li>` : ""}
+          <li><strong>Email:</strong> <a href="mailto:${order.customerEmail}">${
+      order.customerEmail
+    }</a></li>
+          ${
+            order.customerPhone
+              ? `<li><strong>Phone:</strong> ${order.customerPhone}</li>`
+              : ""
+          }
         </ul>
         
         <h3 style="color: #d9a441;">Order Items</h3>
