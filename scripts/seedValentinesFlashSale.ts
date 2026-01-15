@@ -7,7 +7,7 @@
 import mongoose from "mongoose";
 import { FlashSale } from "../src/models/FlashSale";
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = process.env.MONGODB_URI!;
 
 if (!MONGODB_URI) {
   console.error("❌ MONGODB_URI not found in environment variables");
@@ -77,7 +77,9 @@ async function seedFlashSale() {
     console.log("✅ Connected to MongoDB");
 
     // Check if this flash sale already exists
-    const existing = await FlashSale.findOne({ slug: valentinesFlashSale.slug });
+    const existing = await FlashSale.findOne({
+      slug: valentinesFlashSale.slug,
+    });
 
     if (existing) {
       console.log("⚠️  Valentine's flash sale already exists. Updating...");
@@ -91,12 +93,16 @@ async function seedFlashSale() {
 
     console.log("\n📋 Flash Sale Details:");
     console.log(`   Title: ${valentinesFlashSale.title}`);
-    console.log(`   Start: ${valentinesFlashSale.startDate.toLocaleDateString()}`);
+    console.log(
+      `   Start: ${valentinesFlashSale.startDate.toLocaleDateString()}`
+    );
     console.log(`   End: ${valentinesFlashSale.endDate.toLocaleDateString()}`);
     console.log(`   Products: ${valentinesFlashSale.products.length}`);
     console.log(`   Active: ${valentinesFlashSale.isActive ? "Yes" : "No"}`);
 
-    console.log("\n✨ You can now visit your website to see the flash sale banner!");
+    console.log(
+      "\n✨ You can now visit your website to see the flash sale banner!"
+    );
 
     await mongoose.disconnect();
     console.log("\n👋 Disconnected from MongoDB");
