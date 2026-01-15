@@ -1,0 +1,198 @@
+// src/styles/components/_flashSaleBanner.scss
+
+.flash-sale-banner {
+  width: 100%;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
+  padding: 2rem 1rem 3rem;
+  margin: 0;
+}
+
+.flash-sale-banner__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding-bottom: 1rem;
+}
+
+.flash-sale-banner__image-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: 300px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.flash-sale-banner__image {
+  object-fit: cover;
+}
+
+.flash-sale-banner__content {
+  text-align: center;
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.flash-sale-banner__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-light);
+  margin: 0;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.flash-sale-banner__text {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 700px;
+}
+
+.flash-sale-banner__countdown {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0;
+}
+
+.flash-sale-banner__products {
+  display: flex; // Use flexbox instead of grid
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+  margin: 1rem 0 0.5rem;
+  padding: 0 2rem; // Add horizontal padding to create side space
+}
+
+.flash-sale-banner__product {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  flex: 0 0 260px; // Fixed width for each box
+  max-width: 260px; // Ensure they don't grow
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.flash-sale-banner__product-image {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  img {
+    display: block;
+    object-fit: cover;
+  }
+}
+
+.flash-sale-banner__product-info {
+  text-align: center;
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent-strong);
+    margin: 0 0 0.5rem 0;
+  }
+
+  p {
+    font-size: 0.85rem;
+    color: #555;
+    margin: 0 0 0.75rem 0;
+    line-height: 1.4;
+  }
+}
+
+.flash-sale-banner__product-price {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+.flash-sale-banner__cta {
+  font-size: 1.25rem;
+  padding: 1rem 3rem;
+  background: var(--text-light);
+  color: var(--accent-strong);
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    background: var(--card-bg);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .flash-sale-banner {
+    padding: 1.5rem 1rem 2.5rem;
+  }
+
+  .flash-sale-banner__title {
+    font-size: 2rem;
+  }
+
+  .flash-sale-banner__text {
+    font-size: 1rem;
+  }
+
+  .flash-sale-banner__cta {
+    font-size: 1.1rem;
+    padding: 0.875rem 2rem;
+  }
+
+  .flash-sale-banner__image-wrapper {
+    height: 200px;
+  }
+
+  .flash-sale-banner__products {
+    flex-direction: column; // Stack on mobile
+    align-items: center;
+    padding: 0 1rem;
+    gap: 1rem;
+  }
+
+  .flash-sale-banner__product {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+@media (min-width: 600px) {
+  .flash-sale-banner {
+    padding: 3rem 2rem 4rem;
+  }
+}

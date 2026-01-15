@@ -1,5 +1,7 @@
+// src/app/page.tsx
 "use client";
 
+import { useState } from "react";
 import { siteConfig } from "@/lib/siteConfig";
 import Hero from "@/sections/Hero";
 import Calendar from "@/sections/Calendar";
@@ -9,15 +11,33 @@ import About from "@/sections/About";
 import Reviews from "@/sections/Reviews";
 import Contact from "@/sections/Contact";
 import Navbar from "@/components/NavBar";
+import FlashSaleBanner from "@/components/FlashSaleBanner";
+import FlashSaleModal from "@/components/FlashSaleModal";
+import { FlashSaleType } from "@/types/flashSale";
 
 export default function Home() {
+  const [selectedFlashSale, setSelectedFlashSale] =
+    useState<FlashSaleType | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = (flashSale: FlashSaleType) => {
+    setSelectedFlashSale(flashSale);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedFlashSale(null);
+  };
+
   return (
     <>
       <main>
         <Navbar />
         <Hero />
+        <FlashSaleBanner onOpenModal={handleOpenModal} />
         {siteConfig.sections.map((section) => {
-          if (section.id === "hero") return null; // Hero is already rendered
+          if (section.id === "hero") return null;
           if (section.id === "calendar") return <Calendar key={section.id} />;
           if (section.id === "products")
             return <ProductSlider key={section.id} />;
@@ -32,6 +52,14 @@ export default function Home() {
           );
         })}
       </main>
+
+      {selectedFlashSale && (
+        <FlashSaleModal
+          flashSale={selectedFlashSale}
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+        />
+      )}
     </>
   );
 }

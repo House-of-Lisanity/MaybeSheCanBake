@@ -1,3 +1,4 @@
+// src/types/product.ts
 import { CategoryType } from "./category";
 
 export interface ProductType {
@@ -28,4 +29,5 @@ export interface ProductType {
   storage?: string;
   availability?: string;
   servings?: number;
+  flashSaleOnly?: boolean;
 }

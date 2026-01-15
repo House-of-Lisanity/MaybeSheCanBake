@@ -1,3 +1,4 @@
+// src/components/Modal.tsx
 "use client";
 
 import { useEffect } from "react";
@@ -7,6 +8,7 @@ interface ModalProps {
   onClose: () => void;
   title?: string;
   children: React.ReactNode;
+  hideDefaultClose?: boolean;
 }
 
 export default function Modal({
@@ -14,6 +16,7 @@ export default function Modal({
   onClose,
   title,
   children,
+  hideDefaultClose = false,
 }: ModalProps) {
   useEffect(() => {
     if (!isOpen) {
@@ -48,11 +51,20 @@ export default function Modal({
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal-content" onClick={handleContentClick}>
+        {/* X close button - always show unless explicitly hidden */}
+        {!hideDefaultClose && (
+          <button
+            type="button"
+            className="modal-close-x"
+            onClick={onClose}
+            aria-label="Close"
+          >
+            ×
+          </button>
+        )}
+
         {title && <h3 className="modal-title">{title}</h3>}
         <div className="modal-body">{children}</div>
-        <button type="button" className="modal-close-btn" onClick={onClose}>
-          Close
-        </button>
       </div>
     </div>
   );

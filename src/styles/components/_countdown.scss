@@ -1,0 +1,76 @@
+// src/styles/components/_countdown.scss
+
+.countdown-timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-family: monospace;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60px;
+}
+
+.countdown-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+  line-height: 1;
+}
+
+.countdown-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--text-dark);
+  opacity: 0.7;
+  margin-top: 0.25rem;
+  letter-spacing: 0.05em;
+}
+
+.countdown-separator {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--accent-strong);
+  padding: 0 0.25rem;
+  align-self: flex-start;
+  padding-top: 0.25rem;
+}
+
+.countdown-expired {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #999;
+  text-align: center;
+  padding: 1rem;
+}
+
+@media (max-width: 600px) {
+  .countdown-timer {
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .countdown-value {
+    font-size: 1.5rem;
+  }
+
+  .countdown-unit {
+    min-width: 45px;
+  }
+
+  .countdown-separator {
+    font-size: 1.25rem;
+  }
+
+  .countdown-label {
+    font-size: 0.65rem;
+  }
+}

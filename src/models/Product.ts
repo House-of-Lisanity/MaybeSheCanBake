@@ -15,17 +15,18 @@ const ProductSchema = new Schema({
   isVisible: { type: Boolean, default: true },
   showInGallery: { type: Boolean, default: false },
   isFeatured: { type: Boolean, default: false },
-  dietary: [{ type: String }], // e.g. ["gluten-free", "vegan"]
-  allergens: [{ type: String }], // e.g. ["gluten", "milk", "eggs"]
-  flavors: [{ type: String }], // e.g. ["chocolate", "caramel"]
-  tags: [{ type: String }], // general-purpose tags
-  highlights: [{ type: String }], // e.g. "made with organic ingredients", "award-winning"
-  texture: { type: String }, // e.g. "chewy", "fudgy"
-  season: { type: String }, // e.g. "Fall", "Winter"
-  shelfLife: { type: String }, // e.g. "3 days refrigerated"
-  storage: { type: String }, // e.g. "Keep refrigerated"
-  availability: { type: String }, // e.g. "in-stock", "preorder", "market-day-only"
+  dietary: [{ type: String }],
+  allergens: [{ type: String }],
+  flavors: [{ type: String }],
+  tags: [{ type: String }],
+  highlights: [{ type: String }],
+  texture: { type: String },
+  season: { type: String },
+  shelfLife: { type: String },
+  storage: { type: String },
+  availability: { type: String },
   servings: { type: Number },
+  flashSaleOnly: { type: Boolean, default: false },
 });
 
 export const Product = models.Product || model("Product", ProductSchema);

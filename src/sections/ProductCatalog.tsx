@@ -77,13 +77,18 @@ export default function ProductCatalog() {
     // fetchCategories();
   }, []);
 
-  // Read category from URL query (?category=Cookies)
+  // Read category from URL query (?category=Cookies or ?category=cookies)
   useEffect(() => {
     const fromUrl = searchParams.get("category");
     if (fromUrl) {
-      setCategory(decodeURIComponent(fromUrl));
+      const decoded = decodeURIComponent(fromUrl);
+      // Find matching category (case-insensitive)
+      const match = categories.find(
+        (cat) => cat.toLowerCase() === decoded.toLowerCase()
+      );
+      setCategory(match || decoded);
     }
-  }, [searchParams]);
+  }, [searchParams, categories]);
 
   // Apply filtering when category or products change
   useEffect(() => {
