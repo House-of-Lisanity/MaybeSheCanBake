@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 // TEMP (market): show a static contact notice instead of the form
-const MARKET_MODE = true;
+const MARKET_MODE = false;
 
 export default function Contact() {
   const [formData, setFormData] = useState({
